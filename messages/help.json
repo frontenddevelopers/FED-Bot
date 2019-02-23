@@ -1,3 +1,28 @@
 {
-  "channel": "We are currently evaluating the channel list and we currently don't feature all channels we had on Slack."
+    "channel": {
+        "color": 3447003,
+        "description": "We are currently evaluating the channel list and we currently don't feature all channels we had on Slack."
+    },
+    "music": {
+        "color": 3447003,
+        "description": "At the moment we offer the users following commands:",
+        "fields": [
+            {
+                "name": "`-play` songName or url",
+                "value": "Loads the specified track or playlist and adds it to the queue. If you would like to choose from the results, use -search [search query] instead."
+            },
+            {
+                "name": "`-queue`",
+                "value": "Displays the tracks currently in the queue."
+            },
+            {
+                "name": "`-lyrics`",
+                "value": "Displays the lyrics for the current track. If this cannot find your track, you may find better results by manually searching for it with -lyrics [input]."
+            },
+            {
+                "name": "`-song`",
+                "value": "Displays info about the playing track."
+            }
+        ]
+    }
 }
