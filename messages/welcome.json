@@ -1,3 +1,28 @@
 {
-    "message": "Hi! Welcome to the Frontend Developers community. Before you jump in please...\n\n**⇨ READ EVERYTHING BELOW ⇦**\n\nWe’re glad you’re here. Please start by updating your Nickname to your name and introducing yourself in #introductions, that way you’ll appear as an active member. You can then select a channel from the groups in the left menu.\n\n**Asking for help**\nIf you have questions that may be interpreted as ridiculous or silly by senior developers, feel free to ask them. Just ask yourself,'can I research this question?' before posting something and try not to spam. If they don't answer,just keep researching and ask differently. Before asking for help, please make sure you're in the correct channel and follow our \"How to Ask Questions guidelines\". https://github.com/frontenddevelopers/how-to-ask-questions \n\n**Be Cool Policy**\nThis community strictly follows the don’t be a jerk policy which is enforced by all members and the system itself. So be kind, helpful, and refrain from sexual or bigoted behavior. Unsolicited messages, calls, or emails to users with opportunities, advertisements, feedback, signups, recruiting, or pitches will result in your account being terminated and signup details relinquished to whomever we wish. We don't play, so don't mess with us on this.\n\n**Resources and Tools**\nOur community assets, including the site and logo, can be found at https://github.com/orgs/frontenddevelopers. If you would like to update or change anything feel free to make a pull request.\n\n**Make FED Better**\nWe’re a \"word of mouth\" community. If you like what we’re doing, please feel free to invite your friends share our information using the #frontenddevelopers hash tag.\n\nIf you have any difficulty, feel free to tag @Administrators or connect with https://twitter.com/zachshallbetter outside of Discord."
+    "message": {
+        "color": 3447003,
+        "description": "Hi! Welcome to the Frontend Developers community. Before you jump in please..\n\n**⇨ READ EVERYTHING BELOW ⇦**\n\nWe’re glad you’re here. Please start by updating your Nickname to your name and introducing yourself in #introductions, that way you’ll appear as an active member. You can then select a channel from the groups in the left menu.\n\n",
+        "fields": [
+            {
+                "name": "**Asking for help**",
+                "value": "If you have questions that may be interpreted as ridiculous or silly by senior developers, feel free to ask them. Just ask yourself,'can I research this question?' before posting something and try not to spam. If they don't answer,just keep researching and ask differently. Before asking for help, please make sure you're in the correct channel and follow our \"How to Ask Questions guidelines\". https://github.com/frontenddevelopers/how-to-ask-questions"
+            },
+            {
+                "name": "**Be Cool Policy**",
+                "value": "This community strictly follows the don’t be a jerk policy which is enforced by all members and the system itself. So be kind, helpful, and refrain from sexual or bigoted behavior. Unsolicited messages, calls, or emails to users with opportunities, advertisements, feedback, signups, recruiting, or pitches will result in your account being terminated and signup details relinquished to whomever we wish. We don't play, so don't mess with us on this."
+            },
+            {
+                "name": "**Resources and Tools**",
+                "value": "Our community assets, including the site and logo, can be found at https://github.com/orgs/frontenddevelopers. If you would like to update or change anything feel free to make a pull request."
+            },
+            {
+                "name": "**Make FED Better**",
+                "value": "We’re a \"word of mouth\" community. If you like what we’re doing, please feel free to invite your friends share our information using the #frontenddevelopers hash tag."
+            },
+            {
+                "name": "~",
+                "value": "If you have any difficulty, feel free to tag @Administrators or connect with https://twitter.com/zachshallbetter outside of Discord."
+            }
+        ]
+    }
 }

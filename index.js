@@ -38,10 +38,7 @@ client.on("message", message => {
 client.on("guildMemberAdd", member => {
     if (member.id) {
         client.users.get(member.id).send({
-            embed: {
-                color: 3447003,
-                description: welcome.message
-            }
+            embed: welcome.message
         });
     }
 });
