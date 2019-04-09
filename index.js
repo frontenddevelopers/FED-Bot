@@ -1,90 +1,34 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 import discord from 'discord.js';
+import Enmap from 'enmap';
+import fs from 'fs';
 import config from './config.json';
-import help from './messages/help.json';
-import welcome from './messages/welcome.json';
-import { searchMDN } from 'mdn-search-docs';
 
 const client = new discord.Client();
 
-client.on('ready', () => {
-    console.log('I am ready!');
-});
-client.on('message', message => {
-    if (message.author.bot) return;
-    if (message.content.indexOf(config.prefix) !== 0) return;
-    if (!message.member.roles.some(r => ['Administrators'].includes(r.name)))
-        return message.reply("Sorry, you don't have permissions to use this!");
-
-    const args = message.content
-        .slice(config.prefix.length)
-        .trim()
-        .split(/ +/g);
-    const command = args.shift().toLowerCase();
-
-    if (command === 'help') {
-        let [...msg] = args;
-
-        for (let cmd in help) {
-            if (help.hasOwnProperty(cmd)) {
-                if (msg === cmd) {
-                    message.channel.send({
-                        embed: help[cmd]
-                    });
-                }
-            }
-        }
-    }
-
-    if (command === 'mdn') {
-        let [...term] = args;
-        let result = '';
-        const collector = new discord.MessageCollector(
-            message.channel,
-            m => m.author.id === message.author.id,
-            { time: 10000 }
-        );
-        searchMDN({ term: term })
-            .then(res => {
-                res.documents.forEach((r, i) => {
-                    result += `${i + 1}) ${r.title}\n`;
-                });
-                message.channel.send('```css\n' + `${result}` + '```');
-                collector.on('collect', message => {
-                    if (
-                        !Number.isNaN(message.content) &&
-                        message.content <= 10
-                    ) {
-                        let test = res.documents[message.content - 1];
-
-                        message.channel.send({
-                            embed: {
-                                title: test.title,
-                                description: test.excerpt.replace(
-                                    /<\/?[^>]+>/gi,
-                                    ''
-                                ),
-                                url: test.url
-                            }
-                        });
-                    } else {
-                        message.channel.send(
-                            'Invalid number. Please select  a number from the list.'
-                        );
-                    }
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
+fs.readdir('./events/', (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith('.js')) return;
+    const event = require(`./events/${file}`);
+    const eventName = file.split('.')[0];
+    client.on(eventName, event.bind(null, client));
+    delete require.cache[require.resolve(`./events/${file}`)];
+  });
 });
 
-client.on('guildMemberAdd', member => {
-    if (member.id) {
-        client.users.get(member.id).send({
-            embed: welcome.message
-        });
-    }
+client.commands = new Enmap();
+
+fs.readdir('./commands/', (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith('.js')) return;
+    const props = require(`./commands/${file}`);
+    const commandName = file.split('.')[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
 });
 
 client.login(config.token);
