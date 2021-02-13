@@ -1,46 +1,34 @@
-const discord = require("discord.js");
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
+import discord from 'discord.js';
+import Enmap from 'enmap';
+import fs from 'fs';
+import config from './config.json';
+
 const client = new discord.Client();
-const config = require("./config.json");
-const help = require("./messages/help.json");
-const welcome = require("./messages/welcome.json");
 
-client.on("ready", () => {
-    console.log("I am ready!");
+fs.readdir('./events/', (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith('.js')) return;
+    const event = require(`./events/${file}`);
+    const eventName = file.split('.')[0];
+    client.on(eventName, event.bind(null, client));
+    delete require.cache[require.resolve(`./events/${file}`)];
+  });
 });
 
-client.on("message", message => {
-    if (message.author.bot) return;
-    if (message.content.indexOf(config.prefix) !== 0) return;
-    if (!message.member.roles.some(r => ["Administrators"].includes(r.name)))
-        return message.reply("Sorry, you don't have permissions to use this!");
+client.commands = new Enmap();
 
-    const args = message.content
-        .slice(config.prefix.length)
-        .trim()
-        .split(/ +/g);
-    const command = args.shift().toLowerCase();
-
-    if (command === "help") {
-        let [person, msg] = args;
-
-        for (let cmd in help) {
-            if (help.hasOwnProperty(cmd)) {
-                if (msg === cmd) {
-                    message.channel.send({
-                        embed: help[cmd]
-                    });
-                }
-            }
-        }
-    }
-});
-
-client.on("guildMemberAdd", member => {
-    if (member.id) {
-        client.users.get(member.id).send({
-            embed: welcome.message
-        });
-    }
+fs.readdir('./commands/', (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith('.js')) return;
+    const props = require(`./commands/${file}`);
+    const commandName = file.split('.')[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
 });
 
 client.login(config.token);
